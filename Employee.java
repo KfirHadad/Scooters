@@ -7,8 +7,10 @@ public abstract class Employee implements Comparable<Employee> {
 	private char gender;
 	private char shirtSize;
 	private int firstGrant;
-	
-	protected int sumCommission = 0;
+
+	private double totalSumCommision;
+	private double tempSumCommision;
+	private double lastUpdate;
 
 	public Employee(int ID, String fName, int age, char gender, char shirtSize) throws invalidEmployeeInputException {
 		if (isValidGender(gender) && isValidSize(shirtSize)) {
@@ -34,28 +36,51 @@ public abstract class Employee implements Comparable<Employee> {
 	private boolean isValidSize(char c) {
 		return c == 's' || c == 'm' || c == 'l' || c == 'x';
 	}
-	
+
 	public int compareTo(Employee other) {
-		if (sumCommission > other.sumCommission) {
+		if (getTotalSumCommision() > other.getTotalSumCommision()) {
 			return 1;
-		} else if (sumCommission < other.sumCommission) {
+		} else if (getTotalSumCommision() < other.getTotalSumCommision()) {
 			return -1;
 		} else {
 			return 0;
 		}
-	} 
-	
+	}
+
+	public double getTotalSumCommision() {
+		return this.totalSumCommision;
+	}
+
+	public void setTotalSumCommision(double d) {
+		this.totalSumCommision = d;
+	}
+
+	public double getTempSumCommision() {
+		return this.tempSumCommision;
+	}
+
+	public void setTempSumCommision(double d) {
+		this.tempSumCommision = d;
+	}
+
+	public double getLastUpdate() {
+		return this.lastUpdate;
+	}
+
+	public void setLastUpdate(double d) {
+		this.lastUpdate = d;
+	}
+
 	public char getShirtSize() {
 		return this.shirtSize;
 	}
-	
+
 	public int getFirstGrant() {
 		return this.firstGrant;
 	}
-	
+
 	public void setFirstGrant(int f) {
 		this.firstGrant = f;
 	}
-	
 
 }
