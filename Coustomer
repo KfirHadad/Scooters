@@ -1,5 +1,5 @@
 
-public class Coustomer {
+public class Customer {
 	private int ID;
 	private String fName;
 	private int age;
@@ -7,8 +7,10 @@ public class Coustomer {
 	private boolean helmet;
 	private boolean lock;
 	private ElectricScooter scooter;
+	private int payment; // Assuming you have a property to store the payment
 	
-	public Coustomer(int ID, String fName, int age, char gender,boolean helmet, boolean lock, ElectricScooter scooter) throws InvalidEmployeeInputException 
+	//הבנאי מיועד רק למי שאין לו קורקינט
+	public Customer(int ID, String fName, int age, char gender,boolean helmet, boolean lock, ElectricScooter scooter) throws InvalidEmployeeInputException 
 	{
 		if (isValidGender(gender)){
 			this.ID = ID;
@@ -27,5 +29,12 @@ public class Coustomer {
 		return c == 'm' || c == 'f' || c == 'u';
 	}
 
+	public int getPayment() {
+		 return payment;
+	}
 	
+    public Customer(int payment) {
+        this.payment = payment;
+    }
+    
 }
