@@ -1,0 +1,19 @@
+
+public class ServiceCall {
+//	private Coustomer c;
+//	private Employee e;
+//	private String serviceType;
+//	private ElectricScooter es;
+	
+	public ServiceCall(Coustomer c, Employee e, String serviceType, ElectricScooter es) 
+	{
+	//	this.e=
+	}
+	
+	
+	
+	
+	
+	
+	
+}
