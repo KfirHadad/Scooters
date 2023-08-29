@@ -1,13 +1,19 @@
+import java.util.*;
+
 class QuickElectricScooter extends ElectricScooter {
 
 	private double appVersion;
 
 	private static int quickScooterSales = 0;
+	
+	protected Vector<ElectricScooter> qesVector = new Vector<>();
 
 	public QuickElectricScooter(int serialNumber, int price, String model, int maxSpeed, double appVersion)
 			throws notValidPriceException {
 		super(serialNumber, price, model, maxSpeed);
 		this.appVersion = appVersion;
+		
+		qesVector.add(this);
 
 		quickScooterSales++;
 	}

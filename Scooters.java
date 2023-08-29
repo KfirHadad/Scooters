@@ -1,6 +1,6 @@
 public class Scooters {
 
-    public static void main(String[] args) throws notValidPriceException {
+    public static void main(String[] args) throws notValidPriceException, invalidEmployeeInputException{
         ElectricScooter scooter1 = new ElectricScooter(1, 500, "Model A", 25);
         ElectricScooter scooter2 = new ElectricScooter(2, 600, "Model B", 30);
         QuickElectricScooter quickScooter1 = new QuickElectricScooter(3, 700, "Model Q", 40, 2.0);

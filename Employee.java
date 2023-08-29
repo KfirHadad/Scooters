@@ -6,6 +6,7 @@ public abstract class Employee implements Comparable<Employee> {
 	private int age;
 	private char gender;
 	private char shirtSize;
+	private int firstGrant;
 	
 	protected int sumCommission = 0;
 
@@ -20,14 +21,14 @@ public abstract class Employee implements Comparable<Employee> {
 			throw new invalidEmployeeInputException("Gender must be m/w/o. shirtSize must be s/m/l/x");
 	}
 
-	public abstract int firstGrant();
+	public abstract void firstGrant();
 
-	public abstract void takeCall();
+//	public abstract int numOfCalls();
 
-	public abstract int updateSalary();
+	public abstract boolean update();
 
 	private boolean isValidGender(char c) {
-		return c == 'm' || c == 'w' || c == 'o';
+		return c == 'm' || c == 'f' || c == 'u';
 	}
 
 	private boolean isValidSize(char c) {
@@ -43,5 +44,18 @@ public abstract class Employee implements Comparable<Employee> {
 			return 0;
 		}
 	} 
+	
+	public char getShirtSize() {
+		return this.shirtSize;
+	}
+	
+	public int getFirstGrant() {
+		return this.firstGrant;
+	}
+	
+	public void setFirstGrant(int f) {
+		this.firstGrant = f;
+	}
+	
 
 }

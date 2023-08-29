@@ -1,8 +1,11 @@
+import java.util.*;
+
 class ElectricScooter implements Comparable<ElectricScooter> {
 	private int serialNumber;
 	private int price;
 	private String model;
 	private int maxSpeed;
+	protected Vector<ElectricScooter> esVector = new Vector<>();
 
 	private static int totalSales = 0;
 
@@ -14,6 +17,9 @@ class ElectricScooter implements Comparable<ElectricScooter> {
 			this.serialNumber = serialNumber;
 			this.model = model;
 			this.maxSpeed = maxSpeed;
+			
+			if(!(this instanceof QuickElectricScooter))
+				esVector.add(this);
 
 			totalSales++;
 		}
@@ -47,5 +53,13 @@ class ElectricScooter implements Comparable<ElectricScooter> {
 	
 	public int getPrice() {
 		return price;
+	}
+
+	public int getMaxSpeed() {
+		return maxSpeed;
+	}
+
+	public String getModel() {
+		return this.model;
 	}
 }
