@@ -4,7 +4,9 @@ public class SalesEmployee extends Employee {
 
 	private double commRate;
 	private int salesCount;
-	private double sumCommision;
+	
+	private Vector<Integer> salesPaymentVector = new Vector<Integer>();
+	private Vector<Double> salesCommisionVector = new Vector<Double>();
 
 	public SalesEmployee(int ID, String fName, int age, char gender, char shirtSize, double commRate)
 			throws invalidEmployeeInputException {
@@ -32,8 +34,14 @@ public class SalesEmployee extends Employee {
 
 	@Override
 	public boolean update() {
-		// TODO Auto-generated method stub
-		return true;
+		if (getLastUpdate() * 2 < getTempSumCommision()) {
+			if (this.commRate < 30) {
+				this.commRate = this.commRate * 1.02;
+				return true;
+			} else
+				return false;
+		}
+		return false;
 	}
 
 	public ElectricScooter sellScooter(Vector<ElectricScooter> esv) {
@@ -52,10 +60,17 @@ public class SalesEmployee extends Employee {
 				}
 			}
 		}
-		
-		sumCommision += (commRate/100);
-		
+
+		setTotalSumCommision(getTotalSumCommision() + ((this.commRate) / 100) * esv.elementAt(0).getPrice());
+		salesCommisionVector.add(this.commRate);
+		salesCount = salesCount + 1;
+		chargeCustomer(esv.elementAt(0).getPrice());
+
 		return esv.elementAt(0);
 	}
-	
+
+	private void chargeCustomer(int price) {
+		salesPaymentVector.add(price);
+	}
+
 }
