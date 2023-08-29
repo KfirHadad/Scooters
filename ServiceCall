@@ -1,19 +1,29 @@
 
 public class ServiceCall {
-//	private Coustomer c;
-//	private Employee e;
-//	private String serviceType;
-//	private ElectricScooter es;
-	
-	public ServiceCall(Coustomer c, Employee e, String serviceType, ElectricScooter es) 
-	{
-	//	this.e=
+
+	private Customer customer;
+	private Employee employee;
+	private String serviceType;
+	private ElectricScooter electricScooter;
+	private int profit;
+
+	public ServiceCall(Customer c, Employee e, String serviceType, ElectricScooter es) {
+		this.customer = c;
+		this.employee = e;
+		this.serviceType = serviceType;
+		this.electricScooter = es;
+
+		// Calculate the profit for this service call
+		int customerPayment = customer.getPayment();       
+		int employeeCommission = employee.getCommission();  // צריך במחלקת מכירות לעשות את הפו של העמלות (או אבסטרקטי) ולפי זה לחשב את העמלות פה
+		this.profit = customerPayment - employeeCommission;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	public int getProfit() {
+		return profit;
+	}
 }
+
+
+
+
