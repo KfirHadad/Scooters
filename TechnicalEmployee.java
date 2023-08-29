@@ -2,23 +2,17 @@ import java.util.*;
 
 public class TechnicalEmployee extends Employee {
 
-//	private int numOfCalls;
 	private int commision;
-	private double totalSumCommision;
-	private double tempSumCommision;
-	private double lastUpdate;
-	protected Vector<Integer> paymentVector = new Vector<Integer>();
-	protected Vector<Integer> commisionVector = new Vector<Integer>();
-
+	private Vector<Integer> servicePaymentVector = new Vector<Integer>();
+	private Vector<Integer> serviceCommisionVector = new Vector<Integer>();
 
 	public TechnicalEmployee(int ID, String fName, int age, char gender, char shirtSize)
 			throws invalidEmployeeInputException {
 		super(ID, fName, age, gender, shirtSize);
-//		numOfCalls = 0;
 		commision = 5;
-		totalSumCommision = 0.0;
-		tempSumCommision = 0.0;
-		lastUpdate = 0.0;
+		setTotalSumCommision(0.0);
+		setTempSumCommision(0.0);
+		setLastUpdate(0.0);
 	}
 
 	@Override
@@ -41,9 +35,9 @@ public class TechnicalEmployee extends Employee {
 		int scooterMaxSpeed = es.getMaxSpeed();
 		String scooterModel = es.getModel();
 		chargeCustomer();
-		commisionVector.add(commision);
-		totalSumCommision += commision;
-		tempSumCommision += commision;
+		serviceCommisionVector.add(commision);
+		setTotalSumCommision(getTotalSumCommision() + this.commision);
+		setTempSumCommision(getTempSumCommision() + this.commision);
 		if (es instanceof QuickElectricScooter) {
 
 			System.out.println("Thank you for coming to us");
@@ -57,13 +51,13 @@ public class TechnicalEmployee extends Employee {
 	private void chargeCustomer() {
 		double pr = Math.random();
 		if (pr < 0.3)
-			paymentVector.add(10);
+			servicePaymentVector.add(10);
 		else if (pr < 0.5)
-			paymentVector.add(30);
+			servicePaymentVector.add(30);
 		else if (pr < 0.9)
-			paymentVector.add(80);
+			servicePaymentVector.add(80);
 		else if (pr >= 0.9)
-			paymentVector.add(120);
+			servicePaymentVector.add(120);
 	}
 
 	public int getCommision() {
@@ -72,10 +66,10 @@ public class TechnicalEmployee extends Employee {
 
 	@Override
 	public boolean update() {
-		if (lastUpdate * 1.5 < tempSumCommision) {
-			commision += 2;
-			lastUpdate = tempSumCommision;
-			tempSumCommision = 0;
+		if (getLastUpdate() * 1.5 < getTempSumCommision()) {
+			commision = commision + 2;
+			setLastUpdate(getTempSumCommision());
+			setTempSumCommision(0.0);
 			return true;
 		}
 		return false;
