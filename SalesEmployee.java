@@ -4,15 +4,17 @@ public class SalesEmployee extends Employee {
 
 	private double commRate;
 	private int salesCount;
-	
+
 	private Vector<Integer> salesPaymentVector = new Vector<Integer>();
 	private Vector<Double> salesCommisionVector = new Vector<Double>();
+	private double revenue;
 
 	public SalesEmployee(int ID, String fName, int age, char gender, char shirtSize, double commRate)
 			throws invalidEmployeeInputException {
 		super(ID, fName, age, gender, shirtSize);
 		this.commRate = commRate;
 		salesCount = 0;
+		revenue = 0.0;
 
 	}
 
@@ -23,12 +25,16 @@ public class SalesEmployee extends Employee {
 		switch (a) {
 		case 's':
 			setFirstGrant(10);
+			break;
 		case 'm':
 			setFirstGrant(15);
+			break;
 		case 'l':
 			setFirstGrant(20);
+			break;
 		case 'x':
 			setFirstGrant(15);
+			break;
 		}
 	}
 
@@ -62,15 +68,22 @@ public class SalesEmployee extends Employee {
 		}
 
 		setTotalSumCommision(getTotalSumCommision() + ((this.commRate) / 100) * esv.elementAt(0).getPrice());
-		salesCommisionVector.add(this.commRate);
+		salesCommisionVector.add(0, this.commRate);
 		salesCount = salesCount + 1;
 		chargeCustomer(esv.elementAt(0).getPrice());
+
+		setRevenue();
 
 		return esv.elementAt(0);
 	}
 
+	private void setRevenue() {
+		revenue = salesPaymentVector.elementAt(0) - salesCommisionVector.elementAt(0);
+		//צריך להבין איך לגרום לו להכיר את הוקטור ממחלקת קריאת שירות ולהכניס לתוך הפונקציה
+	}
+
 	private void chargeCustomer(int price) {
-		salesPaymentVector.add(price);
+		salesPaymentVector.add(0, price);
 	}
 
 }
