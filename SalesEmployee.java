@@ -79,7 +79,7 @@ public class SalesEmployee extends Employee {
 
 	private void setRevenue() {
 		revenue = salesPaymentVector.elementAt(0) - salesCommisionVector.elementAt(0);
-		//צריך להבין איך לגרום לו להכיר את הוקטור ממחלקת קריאת שירות ולהכניס לתוך הפונקציה
+		ServiceCall.insertRevenues(this.revenue);
 	}
 
 	private void chargeCustomer(int price) {
