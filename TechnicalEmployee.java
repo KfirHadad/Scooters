@@ -5,6 +5,7 @@ public class TechnicalEmployee extends Employee {
 	private int commision;
 	private Vector<Integer> servicePaymentVector = new Vector<Integer>();
 	private Vector<Integer> serviceCommisionVector = new Vector<Integer>();
+	private double revenue;
 
 	public TechnicalEmployee(int ID, String fName, int age, char gender, char shirtSize)
 			throws invalidEmployeeInputException {
@@ -35,9 +36,12 @@ public class TechnicalEmployee extends Employee {
 		int scooterMaxSpeed = es.getMaxSpeed();
 		String scooterModel = es.getModel();
 		chargeCustomer();
-		serviceCommisionVector.add(commision);
+		serviceCommisionVector.add(0, commision);
 		setTotalSumCommision(getTotalSumCommision() + this.commision);
 		setTempSumCommision(getTempSumCommision() + this.commision);
+		
+		setRevenue();
+		
 		if (es instanceof QuickElectricScooter) {
 
 			System.out.println("Thank you for coming to us");
@@ -51,13 +55,13 @@ public class TechnicalEmployee extends Employee {
 	private void chargeCustomer() {
 		double pr = Math.random();
 		if (pr < 0.3)
-			servicePaymentVector.add(10);
+			servicePaymentVector.add(0, 10);
 		else if (pr < 0.5)
-			servicePaymentVector.add(30);
+			servicePaymentVector.add(0, 30);
 		else if (pr < 0.9)
-			servicePaymentVector.add(80);
+			servicePaymentVector.add(0, 80);
 		else if (pr >= 0.9)
-			servicePaymentVector.add(120);
+			servicePaymentVector.add(0, 120);
 	}
 
 	public int getCommision() {
@@ -74,6 +78,11 @@ public class TechnicalEmployee extends Employee {
 		}
 		return false;
 
+	}
+
+	private void setRevenue() {
+		revenue = servicePaymentVector.elementAt(0) - serviceCommisionVector.elementAt(0);
+		ServiceCall.insertRevenues(this.revenue);
 	}
 
 }
