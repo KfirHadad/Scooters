@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class ServiceCall {
 
@@ -7,24 +8,34 @@ public class ServiceCall {
 	private ElectricScooter electricScooter;
 	private int profit;
 
+	private static Vector<Double> revenuesVector = new Vector<Double>();
+
 	public ServiceCall(Customer c, Employee e, String serviceType, ElectricScooter es) {
+		if (e instanceof SalesEmployee && serviceType == "technical") {
+			System.out.println("this emplyee can't help you with that");
+			return;
+		}
+		if (e instanceof TechnicalEmployee && serviceType == "sales") {
+			System.out.println("this emplyee can't help you with that");
+			return;
+		}
 		this.customer = c;
 		this.employee = e;
 		this.serviceType = serviceType;
 		this.electricScooter = es;
 
 		// Calculate the profit for this service call
-		int customerPayment = customer.getPayment();       
-		int employeeCommission = employee.getCommission();  // צריך במחלקת מכירות לעשות את הפו של העמלות (או אבסטרקטי) ולפי זה לחשב את העמלות פה
+		int customerPayment = customer.getPayment();
+		int employeeCommission = employee.getCommission(); // צריך במחלקת מכירות לעשות את הפו של העמלות (או אבסטרקטי)
+															// ולפי זה לחשב את העמלות פה
 		this.profit = customerPayment - employeeCommission;
+	}
+	
+	public static void insertRevenues(double revenue) {
+	revenuesVector.add(0, revenue);
 	}
 
 	public int getProfit() {
 		return profit;
 	}
 }
-
-
-
-
-
