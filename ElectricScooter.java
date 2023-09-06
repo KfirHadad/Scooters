@@ -25,6 +25,7 @@ class ElectricScooter implements Comparable<ElectricScooter> {
 		}
 	}
 
+	@Override
 	public int compareTo(ElectricScooter other) {
 		if (price > other.price) {
 			return 1;

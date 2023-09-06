@@ -4,9 +4,11 @@ public class SalesEmployee extends Employee {
 
 	private double commRate;
 	private int salesCount;
+	private boolean fg = true;
 
 	private Vector<Integer> salesPaymentVector = new Vector<Integer>();
 	private Vector<Double> salesCommisionVector = new Vector<Double>();
+	public Vector<SalesEmployee> sev = new Vector<SalesEmployee>();
 	private double revenue;
 
 	public SalesEmployee(int ID, String fName, int age, char gender, char shirtSize, double commRate)
@@ -15,27 +17,30 @@ public class SalesEmployee extends Employee {
 		this.commRate = commRate;
 		salesCount = 0;
 		revenue = 0.0;
-
+		sev.add(this);
 	}
 
 	@Override
 	public void firstGrant() {
-
-		int a = super.getShirtSize();
-		switch (a) {
-		case 's':
-			setFirstGrant(10);
-			break;
-		case 'm':
-			setFirstGrant(15);
-			break;
-		case 'l':
-			setFirstGrant(20);
-			break;
-		case 'x':
-			setFirstGrant(15);
-			break;
-		}
+		if (fg) {
+			fg = false;
+			int a = super.getShirtSize();
+			switch (a) {
+			case 's':
+				setFirstGrant(10);
+				break;
+			case 'm':
+				setFirstGrant(15);
+				break;
+			case 'l':
+				setFirstGrant(20);
+				break;
+			case 'x':
+				setFirstGrant(15);
+				break;
+			}
+		} else
+			System.out.println("this employee already used got his first grant");
 	}
 
 	@Override
@@ -84,6 +89,10 @@ public class SalesEmployee extends Employee {
 
 	private void chargeCustomer(int price) {
 		salesPaymentVector.add(0, price);
+	}
+	
+	public SalesEmployee getSalesEmployee() {
+		return this.sev.elementAt(0);
 	}
 
 }

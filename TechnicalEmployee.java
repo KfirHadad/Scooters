@@ -6,6 +6,7 @@ public class TechnicalEmployee extends Employee {
 	private Vector<Integer> servicePaymentVector = new Vector<Integer>();
 	private Vector<Integer> serviceCommisionVector = new Vector<Integer>();
 	private double revenue;
+	private boolean fg = true;
 
 	public TechnicalEmployee(int ID, String fName, int age, char gender, char shirtSize)
 			throws invalidEmployeeInputException {
@@ -19,17 +20,20 @@ public class TechnicalEmployee extends Employee {
 	@Override
 	public void firstGrant() {
 
-		int a = super.getShirtSize();
-		switch (a) {
-		case 's':
-			setFirstGrant(30);
-		case 'm':
-			setFirstGrant(35);
-		case 'l':
-			setFirstGrant(35);
-		case 'x':
-			setFirstGrant(40);
-		}
+		if (fg) {
+			int a = super.getShirtSize();
+			switch (a) {
+			case 's':
+				setFirstGrant(30);
+			case 'm':
+				setFirstGrant(35);
+			case 'l':
+				setFirstGrant(35);
+			case 'x':
+				setFirstGrant(40);
+			}
+		} else
+			System.out.println("this employee already used got his first grant");
 	}
 
 	public void technicalService(ElectricScooter es) {
@@ -39,9 +43,9 @@ public class TechnicalEmployee extends Employee {
 		serviceCommisionVector.add(0, commision);
 		setTotalSumCommision(getTotalSumCommision() + this.commision);
 		setTempSumCommision(getTempSumCommision() + this.commision);
-		
+
 		setRevenue();
-		
+
 		if (es instanceof QuickElectricScooter) {
 
 			System.out.println("Thank you for coming to us");
