@@ -9,10 +9,10 @@ public class SalesEmployee extends Employee {
 	private Vector<Integer> salesPaymentVector = new Vector<Integer>();
 	private Vector<Double> salesCommisionVector = new Vector<Double>();
 	public Vector<SalesEmployee> sev = new Vector<SalesEmployee>();
-	private double revenue;
+	protected double revenue;
 
 	public SalesEmployee(int ID, String fName, int age, char gender, char shirtSize, double commRate)
-			throws invalidEmployeeInputException {
+			throws InvalidEmployeeInputException {
 		super(ID, fName, age, gender, shirtSize);
 		this.commRate = commRate;
 		salesCount = 0;
@@ -82,6 +82,28 @@ public class SalesEmployee extends Employee {
 		return esv.elementAt(0);
 	}
 
+	public ElectricScooter sellCheapestScooter() {
+		ElectricScooter cheapestScooter = null;
+		int cheapestPrice = -1; // Initialize with a sentinel value (e.g., -1)
+
+		for (ElectricScooter scooter : ElectricScooter.getEsVector()) {
+			int price = scooter.getPrice();
+			if (cheapestScooter == null || price < cheapestPrice) {
+				cheapestPrice = price;
+				cheapestScooter = scooter;
+			}
+		}
+
+		if (cheapestScooter != null) {
+			ElectricScooter.getEsVector().remove(cheapestScooter);
+			setTotalSumCommision(getTotalSumCommision() + ((this.commRate) / 100) * cheapestScooter.getPrice());
+			return cheapestScooter;
+		} else {
+			System.out.println("No scooters available for sale.");
+			return null;
+		}
+	}
+
 	private void setRevenue() {
 		revenue = salesPaymentVector.elementAt(0) - salesCommisionVector.elementAt(0);
 		ServiceCall.insertRevenues(this.revenue);
@@ -90,9 +112,19 @@ public class SalesEmployee extends Employee {
 	private void chargeCustomer(int price) {
 		salesPaymentVector.add(0, price);
 	}
-	
+
 	public SalesEmployee getSalesEmployee() {
 		return this.sev.elementAt(0);
+	}
+
+	public static void returnScooter(ElectricScooter scooter) {
+		// Add the returned scooter back to the company's registry (assuming you have a registry or collection)
+		ElectricScooter.getEsVector().add(scooter);
+		System.out.println("Scooter returned to the company's registry.");
+	}
+	
+	public double getRevenue() {
+		return revenue;
 	}
 
 }
