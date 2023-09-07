@@ -1,4 +1,5 @@
-public class Customer{
+public class Customer implements Comparable<Customer> {
+	private int totalPayments;
 	private int ID;
 	private String fName;
 	private int age;
@@ -8,9 +9,7 @@ public class Customer{
 	private ElectricScooter scooter;
 	private int payment; // Assuming you have a property to store the payment
 
-	// הבנאי מיועד רק למי שאין לו קורקינט
-	public Customer(int ID, String fName, int age, char gender, boolean helmet, boolean lock)
-			throws invalidEmployeeInputException {
+	public Customer(int ID, String fName, int age, char gender, boolean helmet, boolean lock, SalesEmployee salesEmployee) {
 		if (isValidGender(gender)) {
 			registrationFee();
 			this.ID = ID;
@@ -20,20 +19,37 @@ public class Customer{
 			this.helmet = helmet;
 			this.lock = lock;
 
-			
-		} else
-			throw new invalidEmployeeInputException("Gender must be m/w/o.");
+			// Call sellCheapestScooter() on the provided SalesEmployee instance
+			ElectricScooter availableScooter = salesEmployee.sellCheapestScooter();
+
+			if (availableScooter != null) {
+				// If the customer already has a scooter, replace it with the new one
+				if (this.scooter != null) {
+					// Return the replaced scooter to the company's registry
+					SalesEmployee.returnScooter(this.scooter);
+				}
+				this.scooter = availableScooter;
+			} else {
+				System.out.println("No scooters available for the customer.");
+			}
+		} else {
+			System.out.println("Invalid gender. Gender must be m/w/u.");
+		}
+	}
+	public Customer (int ID, String fname, int age, char gender, boolean helmet, boolean lock, ElectricScooter scooter) 
+	{
+
 	}
 
 	private void registrationFee() {
 		setPayment(30);
-		System.out.println("this customer paid 30$");
+		System.out.println("This customer paid 30$");
 	}
 
 	private boolean isValidGender(char c) {
 		return c == 'm' || c == 'f' || c == 'u';
 	}
-	
+
 	private void setPayment(int p) {
 		this.payment = this.payment + p;
 	}
@@ -42,8 +58,13 @@ public class Customer{
 		return payment;
 	}
 
-	public Customer(int payment) {
-		this.payment = payment;
+	// Method for a customer to bring their own scooter for service
+	public void bringScooterForService(ElectricScooter scooter) {
+		// Check if the customer already has a scooter and return it to the company's registry
+		if (this.scooter != null) {
+			SalesEmployee.returnScooter(this.scooter);
+		}
+		// Set the customer's scooter to the one they brought for service
+		this.scooter = scooter;
 	}
-
 }
